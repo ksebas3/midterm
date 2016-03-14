@@ -1,0 +1,537 @@
+{
+ "currentVersion": 10.22,
+ "serviceDescription": "<div style=\" margin-left: 20px; margin-right: 20px;\">\n<b>Last Updated:<\/b> January 2015\n<br>\n<h4>Map Information<\/h4>\n\n<p> This nowCOAST time-offsets map service provides maps depicting the NWS surface wind speed forecasts\n from the National Digital Forecast Database (NDFD) at 6-hr increments out to 3 days.  (NDFD has forecasts\n out to 7 days which are available via the nowCOAST time enabled map service for NDFD elements.) Each forecast is \n valid for the specified forecast projection hour with respect to the latest update cycle time.  The forecast is valid at 10 m (33 feet) above ground level. The wind speeds\n are in units of knots (1 knot = 1.15 miles per hour). The wind speed forecast is indicated on the map by\n different colors for 5-knot increments up to 60 knots (69 mph) and then at 10-knot increments up to \n 100 knots (115 mph).  The forecasts are updated in the nowCOAST map service four times per day. \n For more detailed information about the update schedule, see:\n <a href=\"http://new.nowcoast.noaa.gov/help/#section=updateschedule\" target=\"_blank\">http://new.nowcoast.noaa.gov/help/#section=updateschedule<\/a>\n<\/p>\n\n<h4>Background Information<\/h4>\n<p> The wind speed is defined as the sustained wind speed for the indicated hour. The term sustained \nusually refers to a wind speed determined by averaging observed values over a two-minute period. <\/p>\n\n<p> The NDFD is a seamless composite or mosaic of gridded forecasts from individual NWS Weather Forecast \nOffices (WFOs) from around the U.S. as well as the NCEP Ocean Prediction Center and National Hurricane \nCenter/TAFB for certain marine weather variables.   NDFD has a spatial resolution of 2.5 km (1.6 miles).\n  The time resolution of forecast projections varies by variable (element) based on \n  user needs, forecast skill, and forecaster workload.  Each WFO prepares gridded NDFD forecasts for\n  their specific geographic area of responsibility. When these locally generated forecasts are merged \n  into a national mosaic, occasionally areas of discontinuity will be evident. Staff at NWS forecast \n  offices attempt to resolve discontinuities along the boundaries of the forecasts by coordinating with\n  forecasters at surrounding WFOs and using workstation forecast tools that identify and resolve some of\n  these differences. The NWS is making progress in this area, and recognizes that this is a significant \n  issue in which improvements are still needed. The NDFD was developed by NWS Meteorological Development \n  Laboratory.\n<\/p>\n\n<h4>Time Information<\/h4>\n\n<p>\nThis nowCOAST map service is not time-enabled, although it does contain\ntime-varying data. Instead of supporting the time dimension through use of a\ntime parameter in each map request, each individual map layer contains data\nvalid for a different \"time offset\", or forecast projection, from the dataset's\nreference time.\n<\/p>\n\n<p>\nDue to software limitations, the full temporal resolution (i.e. maximum\nforecast horizon and/or all forecast projections) of the data is not provided\nby this service. Instead, a corresponding time-enabled service containing the\nfull temporal resolution is available for this dataset, and users are highly\nencouraged to use that service instead, if possible.\n<\/p>\n\n<p>\nThis time-offsets map service is provided as a convenience for users who are\nnot yet capable of interacting directly with the time dimension, especially\nusers of legacy nowCOAST version 4 map services who wish to access the same\ndata using the new nowCOAST version 5 map services. However, this service may\nbe terminated with little advance notice at a later date.\n<\/p>\n\n<p>\nIn addition to ArcGIS Server REST access, time-enabled OGC WMS 1.3.0 access is\nis also provided by this service.\n<\/p>\n\n<p>\nIn order to determine the latest time information about the data included in\nthis map service, users have two options:\n<\/p>\n\n<ol>\n\t<li>\n\t\tIssue an Identify (ArcGIS REST) or GetFeatureInfo (WMS) request against\n\t\tthe proper layer corresponding with the target dataset. For raster\n\t\tdata, this would be the \"Image Footprints with Time Attributes\" layer\n\t\tin the same group as the target \"Image\" layer being displayed. For\n\t\tvector (point, line, or polygon) data, the target layer can be queried\n\t\tdirectly. In either case, the attributes returned for the matching\n\t\traster(s) or vector feature(s) will include the following:\n\t\t<ul>\n\t\t\t<li>\n\t\t\t\t<b>validtime<\/b>: Valid timestamp.\n\t\t\t<\/li>\n\t\t\t<li>\n\t\t\t\t<b>starttime<\/b>: Display start time.\n\t\t\t<\/li>\n\t\t\t<li>\n\t\t\t\t<b>endtime<\/b>: Display end time.\n\t\t\t<\/li>\n\t\t\t<li>\n\t\t\t\t<b>reftime<\/b>: Reference time (sometimes reffered to as\n\t\t\t\tissuance time, cycle time, or initialization time).\n\t\t\t<\/li>\n\t\t\t<li>\n\t\t\t\t<b>projmins<\/b>: Number of minutes from reference time to valid\n\t\t\t\ttime.\n\t\t\t<\/li>\n\t\t\t<li>\n\t\t\t\t<b>desigreftime<\/b>: Designated reference time; used as a\n\t\t\t\tcommon reference time for all items when individual reference\n\t\t\t\ttimes do not match.\n\t\t\t<\/li>\n\t\t\t<li>\n\t\t\t\t<b>desigprojmins<\/b>: Number of minutes from designated\n\t\t\t\treference time to valid time.\n\t\t\t<\/li>\n\t\t<\/ul>\n\t<\/li>\n\t<li>\n\t\tQuery the nowCOAST LayerInfo web service, which has been created to\n\t\tprovide additional information about each data layer in a service,\n\t\tincluding a list of all available \"time stops\" (i.e. \"valid times\"),\n\t\tindividual timestamps, or the valid time of a layer's latest available\n\t\tdata (i.e. \"Product Time\"). For more information about the LayerInfo\n\t\tweb service, including examples of various types of requests, refer to\n\t\tthe nowCOAST help documentation at:\n\t\t<a href=\"http://new.nowcoast.noaa.gov/help/#section=layerinfo\" target=\"_blank\">http://new.nowcoast.noaa.gov/help/#section=layerinfo<\/a>\n\t<\/li>\n<\/ol>\n\n<h4>References<\/h4>\n<ul>\n\n<li>NWS, 2007: National Digital Forecast Database (NDFD) Experimental Gridded Data, Product Description Document, \nNWS, Silver Spring, MD (Available at <a href=\"http://products.weather.gov/PDD/NDFDGrids.pdf\" \ntarget=\"_blank\">http://products.weather.gov/PDD/NDFDGrids.pdf<\/a>).<\/li>\n<li>NWS, 2013: Experimental Gridded Marine Offshore and High Seas Forecasts in the National Digital Forecast Database (NDFD) \nProduct Description Document, NWS, Silver Spring, MD.<\/li>\n<li>NWS, 2013: National Digital Forecast Database Element Definition, NWS, Silver Spring, MD\n (Available at <a href=\"http://www.nws.noaa.gov/ndfd/definitions.htm\" target=\"_blank\">http://www.nws.noaa.gov/ndfd/definitions.htm<\/a>).<\/li>\n<li>NWS, 2014:  NDFD Spatial Reference System.  NOAA/NWS Meteorological Development Laboratory.\n  (Available at <a href=\"http://graphical.weather.gov/docs/ndfdSRS.htm\" target=\"_blank\">http://graphical.weather.gov/docs/ndfdSRS.htm<\/a>)<\/li>\n<\/ul>\n<\/div>\n\n\n",
+ "mapName": "NOAA NWS NDFD Gridded Forecasts of Surface Wind Speed (knots) (Time Offsets)",
+ "description": "",
+ "copyrightText": "NOAA/NOS/OCS nowCOAST and NOAA/NWS",
+ "supportsDynamicLayers": false,
+ "layers": [
+  {
+   "id": 0,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+6 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": true,
+   "subLayerIds": [
+    1,
+    2,
+    3
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 1,
+   "name": "Boundary",
+   "parentLayerId": 0,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 2,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 0,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 3,
+   "name": "Image",
+   "parentLayerId": 0,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 4,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+12 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    5,
+    6,
+    7
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 5,
+   "name": "Boundary",
+   "parentLayerId": 4,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 6,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 4,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 7,
+   "name": "Image",
+   "parentLayerId": 4,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 8,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+18 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    9,
+    10,
+    11
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 9,
+   "name": "Boundary",
+   "parentLayerId": 8,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 10,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 8,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 11,
+   "name": "Image",
+   "parentLayerId": 8,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 12,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+24 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    13,
+    14,
+    15
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 13,
+   "name": "Boundary",
+   "parentLayerId": 12,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 14,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 12,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 15,
+   "name": "Image",
+   "parentLayerId": 12,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 16,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+30 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    17,
+    18,
+    19
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 17,
+   "name": "Boundary",
+   "parentLayerId": 16,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 18,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 16,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 19,
+   "name": "Image",
+   "parentLayerId": 16,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 20,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+36 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    21,
+    22,
+    23
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 21,
+   "name": "Boundary",
+   "parentLayerId": 20,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 22,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 20,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 23,
+   "name": "Image",
+   "parentLayerId": 20,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 24,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+42 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    25,
+    26,
+    27
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 25,
+   "name": "Boundary",
+   "parentLayerId": 24,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 26,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 24,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 27,
+   "name": "Image",
+   "parentLayerId": 24,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 28,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+48 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    29,
+    30,
+    31
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 29,
+   "name": "Boundary",
+   "parentLayerId": 28,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 30,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 28,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 31,
+   "name": "Image",
+   "parentLayerId": 28,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 32,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+54 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    33,
+    34,
+    35
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 33,
+   "name": "Boundary",
+   "parentLayerId": 32,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 34,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 32,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 35,
+   "name": "Image",
+   "parentLayerId": 32,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 36,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+60 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    37,
+    38,
+    39
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 37,
+   "name": "Boundary",
+   "parentLayerId": 36,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 38,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 36,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 39,
+   "name": "Image",
+   "parentLayerId": 36,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 40,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+66 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    41,
+    42,
+    43
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 41,
+   "name": "Boundary",
+   "parentLayerId": 40,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 42,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 40,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 43,
+   "name": "Image",
+   "parentLayerId": 40,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 44,
+   "name": "Surface (10m AGL) Wind Speed (knots) (+72 hrs)",
+   "parentLayerId": -1,
+   "defaultVisibility": false,
+   "subLayerIds": [
+    45,
+    46,
+    47
+   ],
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 45,
+   "name": "Boundary",
+   "parentLayerId": 44,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 46,
+   "name": "Image Footprints with Time Attributes",
+   "parentLayerId": 44,
+   "defaultVisibility": false,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  },
+  {
+   "id": 47,
+   "name": "Image",
+   "parentLayerId": 44,
+   "defaultVisibility": true,
+   "subLayerIds": null,
+   "minScale": 0,
+   "maxScale": 0
+  }
+ ],
+ "tables": [],
+ "spatialReference": {
+  "wkid": 102100,
+  "latestWkid": 3857
+ },
+ "singleFusedMapCache": false,
+ "initialExtent": {
+  "xmin": -2.4700250906420913E7,
+  "ymin": -2.667984605014056E7,
+  "xmax": 2.4700259842876177E7,
+  "ymax": 4.120887979994057E7,
+  "spatialReference": {
+   "wkid": 102100,
+   "latestWkid": 3857
+  }
+ },
+ "fullExtent": {
+  "xmin": -2.00375018922E7,
+  "ymin": 1382995.5427,
+  "xmax": 2.0037510828655265E7,
+  "ymax": 1.31460382071E7,
+  "spatialReference": {
+   "wkid": 102100,
+   "latestWkid": 3857
+  }
+ },
+ "minScale": 0,
+ "maxScale": 0,
+ "units": "esriMeters",
+ "supportedImageFormatTypes": "PNG32,PNG24,PNG,JPG,DIB,TIFF,EMF,PS,PDF,GIF,SVG,SVGZ,BMP",
+ "documentInfo": {
+  "Title": "",
+  "Author": "",
+  "Comments": "",
+  "Subject": "",
+  "Category": "",
+  "AntialiasingMode": "None",
+  "TextAntialiasingMode": "Force",
+  "Keywords": "surface weather,marine weather,wind speed ,sustained,forecasts,gridded,mosaic,seamless,NDFD,NWS,NOAA,Meteorological Development Laboratory,Weather Forecast Office,NCEP,OPC,NHC,TAFB"
+ },
+ "capabilities": "Map,Query,Data",
+ "supportedQueryFormats": "JSON, AMF",
+ "exportTilesAllowed": false,
+ "maxRecordCount": 1000,
+ "maxImageHeight": 4096,
+ "maxImageWidth": 4096,
+ "supportedExtensions": "WMSServer"
+}
