@@ -1,0 +1,15 @@
+#map {
+  width: 800px;
+  height: 350px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #CCC;
+  }
+  
+/* Resize and position the basemap control on an ArcGIS map. Requires a #BasemapToggle div inside of the #map div */
+#BasemapToggle {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  z-index: 50;
+}
